@@ -39,9 +39,19 @@ class graphics(object):
                 self.pac.posX-=1
                 if(self.tabScreen[self.pac.posX][self.pac.posY]==0) and (self.pac.fill == False):
                     self.pac.fill = True
+                    self.pac.leftSide = True
+                    self.pac.righSide = True
                 if(self.tabScreen[self.pac.posX][self.pac.posY]==1) and (self.pac.fill == True):
                     self.pac.fill = False
+                    print("righSide ? " + str(self.pac.righSide))
+                    print("leftSide ? " + str(self.pac.leftSide))
                 self.tabScreen[self.pac.posX][self.pac.posY]=3
+
+                if(self.pac.fill == True):
+                    if(self.pac.posX<self.ghost.posX and self.pac.posY<self.ghost.posY):
+                        self.pac.righSide = False
+                    if(self.pac.posX>self.ghost.posX and self.pac.posY>self.ghost.posY):
+                    	self.pac.leftSide = False
 
         elif key == K_DOWN:
             if(self.pac.posX<=23):
@@ -50,9 +60,19 @@ class graphics(object):
                 self.pac.posX+=1
                 if(self.tabScreen[self.pac.posX][self.pac.posY]==0) and (self.pac.fill == False):
                     self.pac.fill = True
+                    self.pac.leftSide = True
+                    self.pac.righSide = True
                 if(self.tabScreen[self.pac.posX][self.pac.posY]==1) and (self.pac.fill == True):
                     self.pac.fill = False
+                    print("righSide ? " + str(self.pac.righSide))
+                    print("leftSide ? " + str(self.pac.leftSide))
                 self.tabScreen[self.pac.posX][self.pac.posY]=3
+
+                if(self.pac.fill == True):
+                    if(self.pac.posX<self.ghost.posX and self.pac.posY<self.ghost.posY):
+                        self.pac.righSide = False
+                    if(self.pac.posX>self.ghost.posX and self.pac.posY>self.ghost.posY):
+                    	self.pac.leftSide = False
 
         elif key == K_LEFT:
             if(self.pac.posY>=1):
@@ -61,9 +81,19 @@ class graphics(object):
                 self.pac.posY-=1
                 if(self.tabScreen[self.pac.posX][self.pac.posY]==0) and (self.pac.fill == False):
                     self.pac.fill = True
+                    self.pac.leftSide = True
+                    self.pac.righSide = True
                 if(self.tabScreen[self.pac.posX][self.pac.posY]==1) and (self.pac.fill == True):
                     self.pac.fill = False
+                    print("righSide ? " + str(self.pac.righSide))
+                    print("leftSide ? " + str(self.pac.leftSide))
                 self.tabScreen[self.pac.posX][self.pac.posY]=3
+
+                if(self.pac.fill == True):
+                    if(self.pac.posX<self.ghost.posX and self.pac.posY<self.ghost.posY):
+                        self.pac.righSide = False
+                    if(self.pac.posX>self.ghost.posX and self.pac.posY>self.ghost.posY):
+                    	self.pac.leftSide = False
 
         elif key == K_RIGHT:
             if(self.pac.posY<=23):
@@ -72,9 +102,19 @@ class graphics(object):
                 self.pac.posY+=1
                 if(self.tabScreen[self.pac.posX][self.pac.posY]==0) and (self.pac.fill == False):
                     self.pac.fill = True
+                    self.pac.leftSide = True
+                    self.pac.righSide = True
                 if(self.tabScreen[self.pac.posX][self.pac.posY]==1) and (self.pac.fill == True):
                     self.pac.fill = False
+                    print("righSide ? " + str(self.pac.righSide))
+                    print("leftSide ? " + str(self.pac.leftSide))
                 self.tabScreen[self.pac.posX][self.pac.posY]=3
+
+                if(self.pac.fill == True):
+                    if(self.pac.posX<self.ghost.posX and self.pac.posY<self.ghost.posY):
+                        self.pac.righSide = False
+                    if(self.pac.posX>self.ghost.posX and self.pac.posY>self.ghost.posY):
+                    	self.pac.leftSide = False
 
         elif key == K_r:
                 """reinitialisation"""

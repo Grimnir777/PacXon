@@ -10,9 +10,11 @@ class pacman(object):
         self.pLeft  = pygame.image.load("img/pacmanleft.png").convert_alpha()
         self.pUp    = pygame.image.load("img/pacmanup.png").convert_alpha()
         self.pDown  = pygame.image.load("img/pacmandown.png").convert_alpha()
-        
+
         self.p = self.pRight
         self.fill = False
+        self.righSide = True
+        self.leftSide = True
 
     def changeDirection(self, key):
         if(key == K_RIGHT):
