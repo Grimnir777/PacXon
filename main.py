@@ -18,8 +18,7 @@ while run:
             graphics.update(event.key)
             graphics.render(graphics.pacman)
             graphics.print_tab()
-            print(graphics.pacman.is_filling)
 
-z = input("saisir 0 pour finir")
-print(z)
+# z = input("saisir 0 pour finir")
+# print(z)
 pygame.quit()
