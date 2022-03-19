@@ -7,5 +7,8 @@ class Point:
         self.x += x
         self.y += y
 
+    def copy(self):
+        return Point(self.x, self.y)
+
     def __repr__(self):
         return "".join(["Point(", str(self.x), ",", str(self.y), ")"])

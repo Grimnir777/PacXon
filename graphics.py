@@ -55,6 +55,14 @@ class Graphics(object):
                 return True
         return False
 
+    def check_filling_origin(self, position):
+        if 1 < position.x < 24 and 1 < position.y < 24:
+            if (self.boxes_array[position.x - 1][position.y] == Boxes.EMPTY
+                and self.boxes_array[position.x + 1][position.y] == Boxes.EMPTY) \
+                    or (self.boxes_array[position.x][position.y - 1] == Boxes.EMPTY
+                        and self.boxes_array[position.x][position.y + 1] == Boxes.EMPTY):
+                self.pacman.filling_origin = Point(position.x, position.y)
+
     def check_end_filling(self):
         if (self.boxes_array[self.pacman.position.x][self.pacman.position.y] == Boxes.CLOSED) \
                 and self.pacman.is_filling:
@@ -68,12 +76,14 @@ class Graphics(object):
             origin_right = Point(self.pacman.filling_origin.x, self.pacman.filling_origin.y + 1)
 
             # If two sides (top and bottom are free)
-            if self.empty_side(origin_top) and self.empty_side(origin_bottom):
+            if self.empty_side(origin_top):
                 top_to_fill = self.inspect_side(origin_top)
                 self.inspected_boxes = []
                 if top_to_fill:
                     self.propagate(origin_top)
                     self.propagated_boxes = []
+
+            if self.empty_side(origin_bottom):
                 bottom_to_fill = self.inspect_side(origin_bottom)
                 self.inspected_boxes = []
                 if bottom_to_fill:
@@ -81,17 +91,20 @@ class Graphics(object):
                     self.propagated_boxes = []
 
             # If two sides (left and right are free)
-            elif self.empty_side(origin_left) and self.empty_side(origin_right):
+            if self.empty_side(origin_left):
                 left_to_fill = self.inspect_side(origin_left)
                 self.inspected_boxes = []
                 if left_to_fill:
                     self.propagate(origin_left)
                     self.propagated_boxes = []
+
+            if self.empty_side(origin_right):
                 right_to_fill = self.inspect_side(origin_right)
                 self.inspected_boxes = []
                 if right_to_fill:
                     self.propagate(origin_right)
                     self.propagated_boxes = []
+            self.pacman.filling_origin = Point(-1, -1)
 
     def empty_side(self, position: Point):
         return not self.is_out_of_border(position) and self.boxes_array[position.x][position.y] == Boxes.EMPTY
@@ -120,8 +133,8 @@ class Graphics(object):
         return True
 
     def propagate(self, position: Point):
-        if self.is_out_of_border(position)\
-                or self.has_been_propagated(position)\
+        if self.is_out_of_border(position) \
+                or self.has_been_propagated(position) \
                 or self.boxes_array[position.x][position.y] == Boxes.CLOSED:
             return True
         self.boxes_array[position.x][position.y] = Boxes.CLOSED
@@ -157,6 +170,7 @@ class Graphics(object):
             """reinitialisation"""
         self.check_start_filling()
         self.check_end_filling()
+        self.check_filling_origin(self.pacman.position)
         self.boxes_array[self.pacman.position.x][self.pacman.position.y] = Boxes.PACMAN
         print("Pacman position", self.pacman.position)
         print("Filling origin position", self.pacman.filling_origin)
@@ -172,7 +186,8 @@ class Graphics(object):
                 elif self.boxes_array[i][j] == Boxes.OPEN:
                     pygame.draw.rect(self.screen, (7, 4, 134), (j * BOX_SIZE, i * BOX_SIZE, 21, 21))
                 elif self.boxes_array[i][j] == Boxes.GHOST:
-                    pygame.draw.circle(self.screen, (0, 255, 0), ((i * BOX_SIZE) + int(BOX_SIZE / 2), (j * BOX_SIZE) + int(BOX_SIZE / 2)), 9, 0)
+                    pygame.draw.circle(self.screen, (0, 255, 0),
+                                       ((i * BOX_SIZE) + int(BOX_SIZE / 2), (j * BOX_SIZE) + int(BOX_SIZE / 2)), 9, 0)
 
         self.screen.blit(pac.picture, (self.pacman.position.y * BOX_SIZE, self.pacman.position.x * BOX_SIZE))
         pygame.display.update()

@@ -16,7 +16,7 @@ class Pacman(object):
         self.picture = self.picture_right
 
         self.is_filling = False
-        self.filling_origin = Point(0, 0)
+        self.filling_origin = Point(-1, -1)
 
     def move_up(self) -> None:
         self.position.shift(-1, 0)
